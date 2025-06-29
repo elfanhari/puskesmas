@@ -37,7 +37,6 @@ class PuskesmasController extends Controller
       $logoName = 'logo_' . time() . '.' . $logo->getClientOriginalExtension();
       $logo->move(public_path('img/logo'), $logoName);
 
-      // Hapus logo lama jika bukan default
       if ($puskesmas->logo !== 'logo.png') {
         @unlink(public_path('img/logo/' . $puskesmas->logo));
       }

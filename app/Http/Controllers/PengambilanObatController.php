@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Utilities;
 use App\Models\Obat;
 use App\Models\ObatRekamMedis;
 use App\Models\PengambilanObat;
@@ -71,67 +72,12 @@ class PengambilanObatController extends Controller
     }
   }
 
-  //   public function sendNotif(Request $request, PengambilanObat $pengambilan_obat)
-  //   {
-  //     $namaPasien = $pengambilan_obat?->rekamMedis?->pendaftaran?->pasien?->name;
-  //     // $noTelepon = $pengambilan_obat?->rekamMedis?->pendaftaran?->pasien?->telepon;
-  //     $noTelepon = "6285315755352";
-  //     $waktuPengambilan = $pengambilan_obat->waktu_pengambilan_formatted;
-  //     $puskesmas = Puskesmas::first();
-  //
-  //     if (!$namaPasien || !$noTelepon || !$waktuPengambilan) {
-  //       return response()->json([
-  //         'success' => false,
-  //         'message' => 'Data tidak lengkap untuk mengirim notifikasi.',
-  //       ], 400);
-  //     }
-  //
-  //     DB::beginTransaction();
-  //
-  //     try {
-  //       $messageText = "Halo, {$namaPasien}! Silakan ambil obat pada tanggal {$waktuPengambilan}. Terima kasih.";
-  //
-  //       //       $basic  = new \Vonage\Client\Credentials\Basic(env('VONAGE_API_KEY'), env('VONAGE_API_SECRET'));
-  //       //       $client = new \Vonage\Client($basic);
-  //       //
-  //       //       $response = $client->sms()->send(
-  //       //         new \Vonage\SMS\Message\SMS($noTelepon, $puskesmas->name, $messageText)
-  //       //       );
-  //       //
-  //       //       $message = $response->current();
-  //
-  //       return (new VonageMessage)
-  //         ->content($messageText)
-  //         ->from('6285315755352');
-  //
-  //       // if ($message->getStatus() != 0) {
-  //       //   return response()->json([
-  //       //     'success' => false,
-  //       //     'message' => "Gagal kirim SMS. Status: " . $message->getStatus(),
-  //       //   ]);
-  //       // }
-  //
-  //       DB::commit();
-  //
-  //       return response()->json([
-  //         'success' => true,
-  //         'message' => 'Notifikasi berhasil dikirim!',
-  //       ]);
-  //     } catch (\Throwable $th) {
-  //       DB::rollBack();
-  //
-  //       return response()->json([
-  //         'success' => false,
-  //         'message' => 'Terjadi kesalahan saat mengirim notifikasi: ' . $th->getMessage(),
-  //       ], 500);
-  //     }
-  //   }
-
   public function sendNotif(Request $request, PengambilanObat $pengambilan_obat)
   {
     $namaPasien = $pengambilan_obat->rekamMedis->pendaftaran->pasien->name;
-    // $noTelepon  = $pengambilan_obat->rekamMedis->pendaftaran->pasien->telepon;
-    $noTelepon = "6285315755352"; // Ganti dengan nomor telepon yang valid
+    $noTelepon  = $pengambilan_obat->rekamMedis->pendaftaran->pasien->telepon;
+    $noTelepon = Utilities::getTeleponFormatted($noTelepon);
+    // $noTelepon = "6285315755352"; // Ganti dengan nomor telepon yang valid
     $waktuPengambilan = $pengambilan_obat->waktu_pengambilan_formatted;
 
     $messageText = "Halo $namaPasien! Silakan ambil obat Anda pada $waktuPengambilan. Terima kasih.";

@@ -26,24 +26,12 @@ class DatabaseSeeder extends Seeder
    */
   public function run()
   {
-    // \App\Models\User::factory()->create([
-    //   'name' => 'Elfan Admin',
-    //   'email' => 'admin@gmail.com',
-    //   'password' => 'password', // password
-    //   'foto' => 'profile.jpg',
-    //   'role' => 'admin',
-    //   'is_aktif' => 1,
-    // ]);
-    // $this->call(DummySeeder::class);
-    // $this->call(SekolahSeeder::class);
-
-    User::factory()->create(['name' => 'Admin', 'email' => 'admin@gmail.com', 'password' => 'password', 'role' => 'admin']);
-    User::factory()->create(['name' => 'Petugas', 'email' => 'petugas@gmail.com', 'password' => 'password', 'role' => 'petugas']);
-    $dokterUser = User::factory()->create(['name' => 'Dokter', 'email' => 'dokter@gmail.com', 'password' => 'password', 'role' => 'dokter']);
-    User::factory()->create(['name' => 'Kepala', 'email' => 'kepala@gmail.com', 'password' => 'password', 'role' => 'kepala']);
+    User::factory()->create(['name' => 'Admin', 'email' => 'admin@gmail.com', 'password' => 'password', 'role' => 'admin', 'is_aktif' => true]);
+    User::factory()->create(['name' => 'Petugas', 'email' => 'petugas@gmail.com', 'password' => 'password', 'role' => 'petugas', 'is_aktif' => true]);
+    $dokterUser = User::factory()->create(['name' => 'Dokter', 'email' => 'dokter@gmail.com', 'password' => 'password', 'role' => 'dokter', 'is_aktif' => true]);
+    User::factory()->create(['name' => 'Kepala', 'email' => 'kepala@gmail.com', 'password' => 'password', 'role' => 'kepala', 'is_aktif' => true]);
 
     User::factory()->count(40)->create();
-    // Dokter::factory()->create(['user_id' => $dokterUser->id, 'name' => 'dr. Fauzi']);
     $this->call(PuskesmasSeeder::class);
 
     Poli::insert([

@@ -42,7 +42,7 @@
                                                     <i class="fas fa-pencil-alt"></i>
                                                     Edit
                                                 </a>
-                                                <button class="btn btn-sm btn-danger btn-delete" data-id="{{ $item->id }}" data-name="{{ $item->nama }}">
+                                                <button class="btn btn-sm btn-danger btn-delete" data-id="{{ $item->id }}" data-name="{{ $item->name }}">
                                                     <i class="fas fa-trash"></i>
                                                     Delete
                                                 </button>

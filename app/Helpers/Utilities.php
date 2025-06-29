@@ -57,4 +57,15 @@ class Utilities
   {
     return 'KRT-' . strtoupper(Str::random(6));
   }
+
+  public static function getTeleponFormatted(string $telepon): string
+  {
+    $telepon = preg_replace('/[\s\-\.\(\)]+/', '', $telepon);
+    $telepon = preg_replace('/[^+0-9]/', '', $telepon);
+    // Ganti awalan 08 dengan +62
+    if (str_starts_with($telepon, '08')) {
+      $telepon = '62' . substr($telepon, 1);
+    }
+    return $telepon;
+  }
 }

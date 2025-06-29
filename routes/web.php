@@ -33,7 +33,6 @@ use PhpParser\Node\Stmt\Return_;
 |
 */
 
-
 // Auth::loginUsingId(1); // admin
 // Auth::loginUsingId(2); // petugas
 // Auth::loginUsingId(3);  // dokter
@@ -79,22 +78,6 @@ Route::middleware('auth')->group(function () {
 
   Route::get('/laporan/pasien', [LaporanController::class, 'laporanPasien'])->name('laporan.pasien');
   Route::get('/laporan/rekam-medis', [LaporanController::class, 'laporanRekamMedis'])->name('laporan.rekam-medis');
-
-
-  Route::resource('/kategori-barang', KategoriBarangController::class);
-  Route::resource('/barang', BarangController::class);
-
-  Route::resource('/permintaan-barang', PermintaanBarangController::class);
-  Route::put('/permintaan-barang/{id}/update-status', [PermintaanBarangController::class, 'updateStatus'])->name('permintaan-barang.update-status');
-  Route::put('/permintaan-barang/{id}/update-feedback', [PermintaanBarangController::class, 'updateFeedback'])->name('permintaan-barang.update-feedback');
-
-  Route::resource('/pembelian-barang', PembelianBarangController::class);
-  Route::put('/pembelian-barang/{id}/update-status', [PembelianBarangController::class, 'updateStatus'])->name('pembelian-barang.update-status');
-  Route::put('/pembelian-barang/{id}/update-feedback', [PembelianBarangController::class, 'updateFeedback'])->name('pembelian-barang.update-feedback');
-
-  Route::get('/laporan/barang', [LaporanController::class, 'laporanBarang'])->name('laporan.barang');
-  Route::get('/laporan/barang-keluar-masuk', [LaporanController::class, 'laporanBarangKeluarMasuk'])->name('laporan.barang-keluar-masuk');
-  Route::get('/laporan/permintaan-pembelian-barang', [LaporanController::class, 'laporanPermintaanPembelian'])->name('laporan.permintaan-pembelian');
 
   Route::prefix('/profile')->group(function () {
     Route::get('/show', [ProfileController::class, 'index'])->name('profile.show');

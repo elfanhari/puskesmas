@@ -8,7 +8,7 @@
 
 @section('content')
     <x-main-content>
-        <x-section-header title="Data Pendaftaran" :btnBack="false"></x-section-header>
+        <x-section-header title="Data Rekam Medis" :btnBack="false"></x-section-header>
 
         <div class="section-body">
             <h2 class="section-title">Index</h2>
@@ -24,14 +24,14 @@
                         <table class="table table-striped" id="defaultTable">
                             <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th>No.</th>
                                     <th>Tanggal</th>
-                                    <th>NIK</th>
+                                    <th>No.RM</th>
                                     <th>Nama Pasien</th>
                                     <th>L/P</th>
-                                    <th>Keluhan</th>
+                                    {{-- <th>Keluhan</th>
                                     <th>Poli</th>
-                                    <th>Dokter</th>
+                                    <th>Dokter</th> --}}
                                     <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -41,12 +41,12 @@
                                     <tr>
                                         <td>{{ $index + 1 }}</td>
                                         <td>{{ \Carbon\Carbon::parse($item->pendaftaran->tanggal)->translatedFormat('d/m/Y') }}</td>
-                                        <td>{{ $item->pendaftaran->pasien->nik ?? '-' }}</td>
+                                        <td>{{ $item->pendaftaran->pasien->no_kartu ?? '-' }}</td>
                                         <td>{{ $item->pendaftaran->pasien->name ?? '-' }}</td>
                                         <td>{{ $item->pendaftaran->pasien->jenis_kelamin ?? '-' }}</td>
-                                        <td>{{ Str::limit($item->pendaftaran->keluhan, 50) }}</td>
+                                        {{-- <td>{{ Str::limit($item->pendaftaran->keluhan, 50) }}</td>
                                         <td>{{ $item->poli->name ?? '-' }}</td>
-                                        <td>{{ $item->dokter->name ?? '-' }}</td>
+                                        <td>{{ $item->dokter->name ?? '-' }}</td> --}}
                                         <td>
                                             <span class="badge badge-sm badge-{{ $item->status_color }}">
                                                 <i class="{{ $item->status_icon }}"></i>

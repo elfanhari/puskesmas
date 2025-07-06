@@ -24,7 +24,7 @@
                         <table class="table table-striped" id="defaultTable">
                             <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th>No.</th>
                                     <th>Nama Obat</th>
                                     <th>Stok</th>
                                     <th>Aksi</th>

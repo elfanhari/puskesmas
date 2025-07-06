@@ -26,6 +26,16 @@ class DatabaseSeeder extends Seeder
    */
   public function run()
   {
+    // KOSONGAN
+    // $this->call(DatabaseSeederKosongan::class);
+
+    // DUMMY
+    Poli::insert([
+      ['name' => 'Poli Umum', 'created_at' => now(), 'updated_at' => now()],
+      ['name' => 'Poli Gigi', 'created_at' => now(), 'updated_at' => now()],
+      ['name' => 'Poli KIA', 'created_at' => now(), 'updated_at' => now()],
+    ]);
+
     User::factory()->create(['name' => 'Admin', 'email' => 'admin@gmail.com', 'password' => 'password', 'role' => 'admin', 'is_aktif' => true]);
     User::factory()->create(['name' => 'Petugas', 'email' => 'petugas@gmail.com', 'password' => 'password', 'role' => 'petugas', 'is_aktif' => true]);
     $dokterUser = User::factory()->create(['name' => 'Dokter', 'email' => 'dokter@gmail.com', 'password' => 'password', 'role' => 'dokter', 'is_aktif' => true]);
@@ -34,11 +44,7 @@ class DatabaseSeeder extends Seeder
     User::factory()->count(40)->create();
     $this->call(PuskesmasSeeder::class);
 
-    Poli::insert([
-      ['name' => 'Poli Umum', 'created_at' => now(), 'updated_at' => now()],
-      ['name' => 'Poli Gigi', 'created_at' => now(), 'updated_at' => now()],
-      ['name' => 'Poli KIA', 'created_at' => now(), 'updated_at' => now()],
-    ]);
+
 
     $this->call(ObatSeeder::class);
     Pasien::factory(100)->create();

@@ -120,6 +120,11 @@ class PendaftaranController extends Controller
         'berat_badan' => $request->berat_badan,
       ]);
 
+      $pendaftaran->rekamMedis()->update([
+        'dokter_id' => $request->dokter_id,
+        'poli_id' => $request->poli_id,
+      ]);
+
       DB::commit();
 
       return redirect()->route('pendaftaran.index')->with('success', 'Data pendaftaran berhasil diperbarui');

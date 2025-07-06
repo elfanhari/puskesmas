@@ -14,10 +14,12 @@
             <h2 class="section-title">Index</h2>
             <div class="card">
                 <div class="card-header justify-content-between">
-                    <a href="{{ route('pendaftaran.create') }}" class="btn btn-primary btn-icon icon-left">
-                        <i class="fas fa-plus pe-5"></i>
-                        Tambah Pendaftaran
-                    </a>
+                    @can('petugas')
+                        <a href="{{ route('pendaftaran.create') }}" class="btn btn-primary btn-icon icon-left">
+                            <i class="fas fa-plus pe-5"></i>
+                            Tambah Pendaftaran
+                        </a>
+                    @endcan
                     <a class="btn btn-info btn-icon icon-left text-white" data-toggle="modal" data-target="#modal-filter">
                         <i class="fas fa-filter pe-5"></i>
                         Filter
@@ -28,13 +30,13 @@
                         <table class="table table-striped" id="defaultTable">
                             <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th>No.</th>
                                     <th>Tanggal</th>
-                                    <th>NIK</th>
+                                    <th>No.RM</th>
                                     <th>Nama Pasien</th>
                                     <th>L/P</th>
                                     <th>Petugas Pendaftar</th>
-                                    <th>Keluhan</th>
+                                    {{-- <th>Keluhan</th> --}}
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -43,22 +45,24 @@
                                     <tr>
                                         <td>{{ $index + 1 }}</td>
                                         <td>{{ \Carbon\Carbon::parse($item->tanggal)->translatedFormat('d/m/Y') }}</td>
-                                        <td>{{ $item->pasien->nik ?? '-' }}</td>
+                                        <td>{{ $item->pasien->no_kartu ?? '-' }}</td>
                                         <td>{{ $item->pasien->name ?? '-' }}</td>
                                         <td>{{ $item->pasien->jenis_kelamin ?? '-' }}</td>
                                         <td>{{ $item->petugas->name ?? '-' }}</td>
-                                        <td>{{ Str::limit($item->keluhan, 50) }}</td>
+                                        {{-- <td>{{ Str::limit($item->keluhan, 50) }}</td> --}}
                                         <td class="oneline">
                                             <div>
                                                 <a href="{{ route('rekam-medis.show', $item->rekamMedis->id) }}" class="btn btn-sm btn-success btn-icon icon-left">
                                                     <i class="fas fa-eye"></i> Show
                                                 </a>
-                                                <a href="{{ route('pendaftaran.edit', $item->id) }}" class="btn btn-sm btn-warning btn-icon icon-left">
-                                                    <i class="fas fa-pencil-alt"></i> Edit
-                                                </a>
-                                                <button class="btn btn-sm btn-danger btn-icon icon-left btn-delete" data-id="{{ $item->id }}" data-name="{{ $item->pasien->name }}">
-                                                    <i class="fas fa-trash"></i> Delete
-                                                </button>
+                                                @can('petugas')
+                                                    <a href="{{ route('pendaftaran.edit', $item->id) }}" class="btn btn-sm btn-warning btn-icon icon-left">
+                                                        <i class="fas fa-pencil-alt"></i> Edit
+                                                    </a>
+                                                    <button class="btn btn-sm btn-danger btn-icon icon-left btn-delete" data-id="{{ $item->id }}" data-name="{{ $item->pasien->name }}">
+                                                        <i class="fas fa-trash"></i> Delete
+                                                    </button>
+                                                @endcan
                                             </div>
                                         </td>
                                     </tr>

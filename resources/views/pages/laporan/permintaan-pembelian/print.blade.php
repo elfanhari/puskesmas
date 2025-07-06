@@ -83,7 +83,7 @@
                         <table class="table table-sm table-striped table-bordered text-top" border="1" cellspacing="0" style="width: 100%">
                             <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th>No.</th>
                                     <th>Tanggal</th>
                                     <th>Pengaju</th>
                                     <th>Item</th>

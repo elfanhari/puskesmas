@@ -28,7 +28,7 @@
                         <table class="table table-striped" id="defaultTable">
                             <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th>No.</th>
                                     <th>Kode</th>
                                     <th>Nama Barang</th>
                                     <th>Kategori</th>

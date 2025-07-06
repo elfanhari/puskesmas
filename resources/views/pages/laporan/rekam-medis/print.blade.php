@@ -64,7 +64,7 @@
                         <table class="table table-sm table-striped table-bordered" border="1" cellspacing="0" style="width: 100%">
                             <thead class="">
                                 <tr class=" text-white">
-                                    <th>#</th>
+                                    <th>No.</th>
                                     <th>Tanggal</th>
                                     <th>NIK</th>
                                     <th>Nama</th>

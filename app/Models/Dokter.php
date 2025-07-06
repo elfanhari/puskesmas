@@ -19,4 +19,9 @@ class Dokter extends Model
   {
     return $this->hasMany(RekamMedis::class);
   }
+
+  public function dokterPoli()
+  {
+    return $this->hasMany(DokterPoli::class, 'dokter_id');
+  }
 }

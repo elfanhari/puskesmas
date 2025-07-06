@@ -23,6 +23,7 @@ class PengambilanObatController extends Controller
   public function index(Request $request)
   {
     $pengambilanObat = PengambilanObat::query();
+    $pengambilanObat->whereHas('rekamMedis', fn($q) => $q->where('status', 'menunggu_obat'));
     $pengambilanObat->orderBy('waktu_pengambilan', 'asc');
     return view('pages.pengambilan-obat.index', [
       'pengambilanObats' => $pengambilanObat->with(['rekamMedis.pendaftaran.pasien'])->latest()->get(),

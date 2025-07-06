@@ -30,7 +30,7 @@
                         <table class="table table-striped" id="defaultTable">
                             <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th>No.</th>
                                     <th>Pengaju</th>
                                     <th>Tanggal</th>
                                     <th>Total Item</th>

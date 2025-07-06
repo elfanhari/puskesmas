@@ -5,19 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Poli extends Model
+class DokterPoli extends Model
 {
   use HasFactory;
-
   protected $guarded = ['id'];
 
-  public function rekamMedis()
+  public function dokter()
   {
-    return $this->hasMany(RekamMedis::class);
+    return $this->belongsTo(Dokter::class, 'dokter_id');
   }
 
-  public function dokterPoli()
+  public function poli()
   {
-    return $this->hasMany(DokterPoli::class, 'poli_id');
+    return $this->belongsTo(Poli::class, 'poli_id');
   }
 }

@@ -111,7 +111,7 @@
             @php
                 $info = [
                     'Nama' => $pendaftaran->pasien->name,
-                    'NIK' => $pendaftaran->pasien->nik,
+                    'No.RM' => $pendaftaran->pasien->no_kartu,
                     'Jenis Kelamin' => $pendaftaran->pasien->jk_formatted,
                     'Tanggal Kunjungan' => Carbon\Carbon::parse($pendaftaran->tanggal_kunjungan)->translatedFormat('d/m/Y'),
                     'Keluhan' => $pendaftaran->keluhan,

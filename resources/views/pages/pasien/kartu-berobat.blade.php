@@ -56,7 +56,7 @@
             font-size: 12px;
             text-align: center;
             border-top: 1px dashed #999;
-            padding-top: 8px;
+            padding-top: 0px;
         }
 
         .float-left {
@@ -72,6 +72,15 @@
                 page-break-inside: avoid;
             }
         }
+
+        .kotak {
+            border: 1px solid #000;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            margin-top: 10px;
+            font-size: 10px;
+        }
     </style>
 </head>
 
@@ -86,21 +95,22 @@
             <div class="title">KARTU BEROBAT</div>
             <div class="title">{{ $puskesmas->name }}</div>
             <div>{{ $puskesmas->alamat }}</div>
+            <div class="">{{ $puskesmas->email }}</div>
         </div>
 
         <table class="info-table">
             <tr>
-                <td class="label">No. Kartu</td>
+                <td class="label">No. RM</td>
                 <td>: {{ $pasien->no_kartu }}</td>
             </tr>
             <tr>
                 <td class="label">Nama</td>
                 <td>: {{ $pasien->name }}</td>
             </tr>
-            <tr>
+            {{-- <tr>
                 <td class="label">NIK</td>
                 <td>: {{ $pasien->nik }}</td>
-            </tr>
+            </tr> --}}
             <tr>
                 <td class="label">Tgl Lahir</td>
                 <td>: {{ \Carbon\Carbon::parse($pasien->tanggal_lahir)->translatedFormat('d F Y') }}</td>
@@ -113,16 +123,22 @@
                 <td class="label">Alamat</td>
                 <td>: {{ $pasien->alamat }}</td>
             </tr>
-            <tr>
+            {{-- <tr>
                 <td class="label">Telepon</td>
                 <td>: {{ $pasien->telepon }}</td>
-            </tr>
+            </tr> --}}
         </table>
 
         <div class="footer">
-            {{ $puskesmas->telepon ? 'Telp: ' . $puskesmas->telepon : '' }}
-            {{ $puskesmas->email ? '| Email: ' . $puskesmas->email : '' }}
-            {{ $puskesmas->website ? '| ' . $puskesmas->website : '' }}
+            <div class="kotak">
+              BAWA KARTU INI SAAT ANDA BEROBAT
+            </div>
+            <div class="kotak">
+              KARTU INI TIDAK DAPAT DIGUNAKAN ORANG LAIN
+            </div>
+            <div class="kotak">
+              APABILA MENEMUKAN KARTU INI, HARAP DIKEMBALIKAN KE ALAMAT DI ATAS
+            </div>
         </div>
     </div>
     <script>

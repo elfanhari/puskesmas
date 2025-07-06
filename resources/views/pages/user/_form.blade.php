@@ -20,6 +20,22 @@
         @enderror
     </div>
 
+    @if ($user->role == 'dokter')
+        <div class="form-group">
+            <label for="poli_id" class="required">Poli Ditangani</label>
+            <select name="poli_id[]" id="poli_id" class="form-control select2 @error('poli_id') is-invalid @enderror" data-placeholder="Pilih Poli" multiple required>
+                @foreach ($polis as $poli)
+                    <option value="{{ $poli->id }}" {{ in_array($poli->id, old('poli_id', $poliDitangani ?? [])) ? 'selected' : '' }}>
+                        {{ $poli->name }}
+                    </option>
+                @endforeach
+            </select>
+            @error('poli_id')
+                <span class="invalid-feedback">{{ $message }}</span>
+            @enderror
+        </div>
+    @endif
+
     <div class="form-group">
         <label for="email" class="required">Email</label>
         <input type="text" name="email" id="email" placeholder="Ketik Email" value="{{ old('email', $user->email) }}" class="form-control @error('email') is-invalid @enderror" required>

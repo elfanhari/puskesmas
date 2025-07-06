@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Utilities;
 use App\Models\Dokter;
+use App\Models\DokterPoli;
+use App\Models\Poli;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -34,9 +36,12 @@ class UserController extends Controller
   {
     $roleFormatted = Utilities::getRoleFormatted($role);
     $user = new User([
-      'is_aktif' => 1
+      'is_aktif' => 1,
+      'role' => $role,
     ]);
-    return view('pages.user.create', compact('role', 'roleFormatted', 'user'));
+    $polis = Poli::get();
+    $poliDitangani = $user->dokter?->dokterPoli->pluck('poli_id')->toArray();
+    return view('pages.user.create', compact('role', 'roleFormatted', 'user', 'polis', 'poliDitangani'));
   }
 
 
@@ -67,10 +72,18 @@ class UserController extends Controller
       ]);
 
       if ($role === 'dokter') {
-        Dokter::create([
+        $dokter = Dokter::create([
           'user_id' => $user->id,
           'name' => $request->name,
         ]);
+
+        if ($request->has('poli_id')) {
+          foreach ($request->poli_id as $poliId) {
+            $dokter->dokterPoli()->create([
+              'poli_id' => $poliId,
+            ]);
+          }
+        }
       }
 
       DB::commit();
@@ -106,7 +119,9 @@ class UserController extends Controller
   public function edit($role, User $user)
   {
     $roleFormatted = Utilities::getRoleFormatted($role);
-    return view('pages.user.edit', compact('user', 'role', 'roleFormatted'));
+    $polis = Poli::get();
+    $poliDitangani = $user->dokter?->dokterPoli->pluck('poli_id')->toArray();
+    return view('pages.user.edit', compact('user', 'role', 'roleFormatted', 'polis', 'poliDitangani'));
   }
 
 
@@ -137,6 +152,17 @@ class UserController extends Controller
         $user->dokter->update([
           'name' => $request->name,
         ]);
+
+        $user->dokter->dokterPoli()->delete();
+
+        if ($request->has('poli_id')) {
+          foreach ($request->poli_id as $poliId) {
+            DokterPoli::create([
+              'dokter_id' => $user->dokter->id,
+              'poli_id' => $poliId,
+            ]);
+          }
+        }
       }
       DB::commit();
       return redirect()->route('user.index', $role)->withSuccess('Data berhasil diperbarui!');

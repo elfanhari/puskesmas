@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DokterController;
 use App\Http\Controllers\KategoriBarangController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\ObatController;
@@ -18,6 +19,7 @@ use App\Http\Controllers\RekamMedisController;
 use App\Http\Controllers\SekolahController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
+use App\Models\Dokter;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use PhpParser\Node\Stmt\Return_;
@@ -33,7 +35,7 @@ use PhpParser\Node\Stmt\Return_;
 |
 */
 
-// Auth::loginUsingId(1); // admin
+Auth::loginUsingId(1); // admin
 // Auth::loginUsingId(2); // petugas
 // Auth::loginUsingId(3);  // dokter
 // Auth::loginUsingId(4); // kepala
@@ -68,6 +70,10 @@ Route::middleware('auth')->group(function () {
   Route::resource('/poli', PoliController::class);
   Route::resource('/pasien', PasienController::class);
   Route::get('/pasien/{pasien}/kartu-berobat', [PasienController::class, 'kartuBerobat'])->name('pasien.kartu-berobat');
+
+  Route::get('/get-dokter-by-poli/{poli_id}', [DokterController::class, 'getDokterByPoli']);
+
+
   Route::resource('/pendaftaran', PendaftaranController::class);
 
   Route::resource('/rekam-medis', RekamMedisController::class)->parameters(['rekam-medis' => 'rekam_medis']);

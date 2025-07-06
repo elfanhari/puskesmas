@@ -13,22 +13,24 @@
         <div class="section-body">
             <h2 class="section-title">Index</h2>
             <div class="card">
-                <div class="card-header justify-content-between">
-                    <a href="{{ route('pasien.create') }}" class="btn btn-primary btn-icon icon-left">
-                        <i class="fas fa-plus pe-5"></i>
-                        Tambah Pasien
-                    </a>
-                </div>
+                @can('petugas')
+                    <div class="card-header justify-content-between">
+                        <a href="{{ route('pasien.create') }}" class="btn btn-primary btn-icon icon-left">
+                            <i class="fas fa-plus pe-5"></i>
+                            Tambah Pasien
+                        </a>
+                    </div>
+                @endcan
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-striped" id="defaultTable">
                             <thead>
                                 <tr>
-                                    <th>#</th>
-                                    <th>No. Kartu</th>
+                                    <th>No.</th>
+                                    <th>No. RM</th>
                                     <th>Nama </th>
-                                    <th>NIK</th>
-                                    <th>L/P</th>
+                                    {{-- <th>NIK</th>
+                                    <th>L/P</th> --}}
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -40,22 +42,24 @@
                                         </td>
                                         <td>{{ $item->no_kartu }}</td>
                                         <td>{{ $item->name }}</td>
-                                        <td>{{ $item->nik }}</td>
-                                        <td>{{ $item->jenis_kelamin }}</td>
+                                        {{-- <td>{{ $item->nik }}</td>
+                                        <td>{{ $item->jenis_kelamin }}</td> --}}
                                         <td class="oneline">
                                             <div class="">
                                                 <a href="{{ route('pasien.show', $item->id) }}" class="btn btn-sm btn-success btn-icon icon-left">
                                                     <i class="fas fa-eye"></i>
                                                     Show
                                                 </a>
-                                                <a href="{{ route('pasien.edit', $item->id) }}" class="btn btn-sm btn-warning btn-icon icon-left">
-                                                    <i class="fas fa-pencil-alt"></i>
-                                                    Edit
-                                                </a>
-                                                <button class="btn btn-sm btn-danger btn-icon icon-left btn-delete" data-id="{{ $item->id }}" data-name="{{ $item->name }}">
-                                                    <i class="fas fa-trash"></i>
-                                                    Delete
-                                                </button>
+                                                @can('petugas')
+                                                    <a href="{{ route('pasien.edit', $item->id) }}" class="btn btn-sm btn-warning btn-icon icon-left">
+                                                        <i class="fas fa-pencil-alt"></i>
+                                                        Edit
+                                                    </a>
+                                                    <button class="btn btn-sm btn-danger btn-icon icon-left btn-delete" data-id="{{ $item->id }}" data-name="{{ $item->name }}">
+                                                        <i class="fas fa-trash"></i>
+                                                        Delete
+                                                    </button>
+                                                @endcan
                                             </div>
                                         </td>
                                     </tr>

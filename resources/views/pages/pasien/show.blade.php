@@ -61,7 +61,7 @@
                                             <th style="width: 50px;">No</th>
                                             <th>Tanggal</th>
                                             <th>Keluhan</th>
-                                            <th style="width: 80px;">Detail</th>
+                                            {{-- <th style="width: 80px;">Detail</th> --}}
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -70,11 +70,11 @@
                                                 <td>{{ $index + 1 }}</td>
                                                 <td>{{ \Carbon\Carbon::parse($item->tanggal)->translatedFormat('d/m/Y') }}</td>
                                                 <td>{{ Str::limit($item->keluhan, 40) }}</td>
-                                                <td>
+                                                {{-- <td>
                                                     <a href="{{ route('rekam-medis.show', $item->id) }}" class="btn btn-sm btn-info">
                                                         <i class="fas fa-eye"></i>
                                                     </a>
-                                                </td>
+                                                </td> --}}
                                             </tr>
                                         @empty
                                             <tr>

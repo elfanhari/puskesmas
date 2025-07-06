@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\Dokter;
+use App\Models\DokterPoli;
+use App\Models\Poli;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -31,9 +33,26 @@ class UserFactory extends Factory
   {
     return $this->afterCreating(function ($user) {
       if ($user->role === 'dokter') {
-        Dokter::create([
+        $dokter = Dokter::create([
           'user_id' => $user->id,
           'name' => $user->name,
+        ]);
+
+        //         $poliIds = Poli::pluck('id')->toArray();
+        //         if (count($poliIds)) {
+        //           $selectedPoli = fake()->randomElements($poliIds, rand(1, min(3, count($poliIds))));
+        //
+        //           foreach ($selectedPoli as $poliId) {
+        //             DokterPoli::create([
+        //               'dokter_id' => $dokter->id,
+        //               'poli_id' => $poliId,
+        //             ]);
+        //           }
+        //         }
+
+        DokterPoli::create([
+          'dokter_id' => $dokter->id,
+          'poli_id' => Poli::inRandomOrder()->first()->id,
         ]);
       }
     });

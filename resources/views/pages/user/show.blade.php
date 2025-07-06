@@ -25,6 +25,15 @@
                             <div class="fw-bold mt-3"><b>Email</b></div>
                             <div class="text-gray-600">{{ $user->email ?? '-' }}</div>
 
+                            @if ($user->isDokter())
+                                <div class="fw-bold mt-3"><b>Poli Ditangani</b></div>
+                                <div class="text-gray-600">
+                                    @foreach ($user->dokter?->dokterPoli as $poli)
+                                        <span class="badge badge-info me-2">{{ $poli->poli->name }}</span>
+                                    @endforeach
+                                </div>
+                            @endif
+
                             <div class="fw-bold mt-3"><b>Role</b></div>
                             <div class="text-gray-600 text-uppercase">{{ $user->role_formatted ?? '-' }}</div>
 

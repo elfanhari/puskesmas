@@ -132,3 +132,42 @@
         </div>
     </div>
 </div>
+
+@push('js')
+    <script>
+        $(document).ready(function() {
+            $('#poli_id').on('change', function() {
+                let poliId = $(this).val();
+                let $dokterSelect = $('#dokter_id');
+
+                $dokterSelect.empty().append('<option value="">Loading...</option>');
+
+                if (poliId) {
+                    $.ajax({
+                        url: '/get-dokter-by-poli/' + poliId,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(data) {
+                            $dokterSelect.empty().append('<option value="">Pilih Dokter</option>');
+
+                            if (data.length > 0) {
+                                $.each(data, function(key, dokter) {
+                                    $dokterSelect.append('<option value="' + dokter.id + '">' + dokter.name + '</option>');
+                                });
+                            } else {
+                                $dokterSelect.append('<option value="">Tidak ada dokter tersedia</option>');
+                            }
+
+                            $dokterSelect.trigger('change');
+                        },
+                        error: function() {
+                            $dokterSelect.empty().append('<option value="">Gagal mengambil data</option>');
+                        }
+                    });
+                } else {
+                    $dokterSelect.empty().append('<option value="">Pilih Poli terlebih dahulu</option>');
+                }
+            });
+        });
+    </script>
+@endpush

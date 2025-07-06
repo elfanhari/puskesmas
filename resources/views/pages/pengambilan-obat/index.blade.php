@@ -18,14 +18,14 @@
                         <table class="table table-striped" id="defaultTable">
                             <thead>
                                 <tr>
-                                    <th>#</th>
-                                    <th>Pengambilan</th>
-                                    <th>NIK</th>
+                                    <th>No.</th>
+                                    <th>Pengambilan Obat</th>
+                                    <th>No.RM</th>
                                     <th>Nama Pasien</th>
                                     <th>L/P</th>
-                                    <th>Keluhan</th>
+                                    {{-- <th>Keluhan</th>
                                     <th>Obat</th>
-                                    <th>Status</th>
+                                    <th>Status</th> --}}
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -34,11 +34,10 @@
                                     <tr>
                                         <td>{{ $index + 1 }}</td>
                                         <td>{{ $item->waktu_pengambilan_formatted }}</td>
-
-                                        <td>{{ $item->rekamMedis->pendaftaran->pasien->nik ?? '-' }}</td>
+                                        <td>{{ $item->rekamMedis->pendaftaran->pasien->no_kartu ?? '-' }}</td>
                                         <td>{{ $item->rekamMedis->pendaftaran->pasien->name ?? '-' }}</td>
                                         <td>{{ $item->rekamMedis->pendaftaran->pasien->jenis_kelamin ?? '-' }}</td>
-                                        <td>{{ Str::limit($item->rekamMedis->pendaftaran->keluhan, 50) }}</td>
+                                        {{-- <td>{{ Str::limit($item->rekamMedis->pendaftaran->keluhan, 50) }}</td>
                                         <td class="ps-0">
                                             <ul style="padding-left: 0; margin: 0;">
                                                 @foreach ($item->rekamMedis->obatRekamMedis as $orm)
@@ -53,7 +52,7 @@
                                                 <i class="{{ $item->rekamMedis->status_icon }}"></i>
                                                 {{ $item->rekamMedis->status_label }}
                                             </span>
-                                        </td>
+                                        </td> --}}
                                         <td class="">
                                             <div class="oneline">
                                                 <a href="{{ route('rekam-medis.show', $item->rekamMedis->id) }}" class="btn btn-sm btn-success btn-icon icon-left">

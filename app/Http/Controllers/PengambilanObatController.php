@@ -73,7 +73,7 @@ class PengambilanObatController extends Controller
     }
   }
 
-  public function sendNotif(Request $request, PengambilanObat $pengambilan_obat)
+  public function sendNotifVonage(Request $request, PengambilanObat $pengambilan_obat)
   {
     $namaPasien = $pengambilan_obat->rekamMedis->pendaftaran->pasien->name;
     $noTelepon  = $pengambilan_obat->rekamMedis->pendaftaran->pasien->telepon;
@@ -84,6 +84,8 @@ class PengambilanObatController extends Controller
     $messageText = "Halo $namaPasien! Silakan ambil obat Anda pada $waktuPengambilan. Terima kasih.";
 
     try {
+      $pengambilan_obat->update(['is_notified' => true]);
+
       $basic  = new \Vonage\Client\Credentials\Basic("b11f0df6", "Mxn0ilDfqIhTrBYK");
       $client = new \Vonage\Client($basic);
 
@@ -111,6 +113,8 @@ class PengambilanObatController extends Controller
     $waktu = $pengambilan_obat->waktu_pengambilan_formatted;
 
     try {
+
+      $pengambilan_obat->update(['is_notified' => true]);
 
       $sid = getenv('TWILIO_SID');
       $token = getenv('TWILIO_TOKEN');

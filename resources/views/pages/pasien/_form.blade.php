@@ -1,7 +1,7 @@
 <div class="col-md-6">
     <div class="form-group">
-        <label for="no_kartu" class="required">No. Kartu</label>
-        <input type="text" name="no_kartu" id="no_kartu" placeholder="Masukkan No. Kartu" value="{{ old('no_kartu', $pasien->no_kartu ?? '') }}" class="form-control @error('no_kartu') is-invalid @enderror" required readonly>
+        <label for="no_kartu" class="required">No.RM</label>
+        <input type="text" name="no_kartu" id="no_kartu" placeholder="Masukkan No.RM" value="{{ old('no_kartu', $pasien->no_kartu ?? '') }}" class="form-control @error('no_kartu') is-invalid @enderror" required readonly>
         @error('no_kartu')
             <span class="invalid-feedback">{{ $message }}</span>
         @enderror

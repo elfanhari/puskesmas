@@ -18,7 +18,7 @@ class PasienFactory extends Factory
   public function definition()
   {
     return [
-      'no_kartu' => 'KRT-' . strtoupper(Str::random(6)),
+      'no_kartu' => 'RM-' . strtoupper(Str::random(6)),
       'name' => $this->faker->name(),
       'nik' => $this->faker->nik(),
       'tanggal_lahir' => $this->faker->date('Y-m-d', '-20 years'),

@@ -18,6 +18,7 @@ return new class extends Migration
       $table->foreignId('rekam_medis_id')->constrained('rekam_medis')->onDelete('cascade');
       $table->timestamp('waktu_pengambilan')->nullable();
       $table->text('catatan')->nullable();
+      $table->boolean('is_notified')->default(false);
       $table->timestamps();
     });
   }

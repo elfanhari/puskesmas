@@ -249,20 +249,23 @@
                     </table>
                 </div>
 
-                <div class="form-group mb-3">
-                    <label for="waktu_pengambilan" class="">Waktu Pengambilan</label>
-                    <input type="text" name="waktu_pengambilan" id="waktu_pengambilan" value="{{ old('waktu_pengambilan', $pengambilanObat->waktu_pengambilan ?? date('Y-m-d')) }}" class="form-control datetimepicker @error('waktu_pengambilan') is-invalid @enderror">
-                    @error('waktu_pengambilan')
-                        <span class="invalid-feedback">{{ $message }}</span>
-                    @enderror
+                <div id="pengambilan-obat" class="d-none">
+                    <div class="form-group mb-3">
+                        <label for="waktu_pengambilan" class="">Waktu Pengambilan</label>
+                        <input type="text" name="waktu_pengambilan" id="waktu_pengambilan" value="{{ old('waktu_pengambilan', $pengambilanObat->waktu_pengambilan ?? date('Y-m-d')) }}" class="form-control datetimepicker @error('waktu_pengambilan') is-invalid @enderror">
+                        @error('waktu_pengambilan')
+                            <span class="invalid-feedback">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="catatan_pengambilan_obat">Catatan</label>
+                        <textarea name="catatan_pengambilan_obat" id="catatan_pengambilan_obat" rows="3" class="form-control @error('catatan_pengambilan_obat') is-invalid @enderror" placeholder="Opsional">{{ old('catatan_pengambilan_obat', $pengambilanObat->catatan ?? '') }}</textarea>
+                        @error('catatan_pengambilan_obat')
+                            <span class="invalid-feedback">{{ $message }}</span>
+                        @enderror
+                    </div>
                 </div>
-                <div class="form-group mb-3">
-                    <label for="catatan_pengambilan_obat">Catatan</label>
-                    <textarea name="catatan_pengambilan_obat" id="catatan_pengambilan_obat" rows="3" class="form-control @error('catatan_pengambilan_obat') is-invalid @enderror" placeholder="Opsional">{{ old('catatan_pengambilan_obat', $pengambilanObat->catatan ?? '') }}</textarea>
-                    @error('catatan_pengambilan_obat')
-                        <span class="invalid-feedback">{{ $message }}</span>
-                    @enderror
-                </div>
+
             </div>
         </div>
     </div>
@@ -308,6 +311,11 @@
                 if (keputusan === 'diberi_obat') {
                     $('#obat-rekam-medis').removeClass('d-none');
                     $('#rujukan').addClass('d-none');
+                    if ($('#poli_id').val() == '1') {
+                        $('#pengambilan-obat').removeClass('d-none');
+                    } else {
+                        $('#pengambilan-obat').addClass('d-none');
+                    }
                 } else if (keputusan === 'dirujuk') {
                     $('#rujukan').removeClass('d-none');
                     $('#obat-rekam-medis').addClass('d-none');

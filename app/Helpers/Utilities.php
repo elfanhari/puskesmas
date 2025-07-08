@@ -55,7 +55,7 @@ class Utilities
 
   public static function generateNoKartuPasien()
   {
-    return 'KRT-' . strtoupper(Str::random(6));
+    return 'RM-' . strtoupper(Str::random(6));
   }
 
   public static function getTeleponFormatted(string $telepon): string

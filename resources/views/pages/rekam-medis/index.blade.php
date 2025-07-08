@@ -39,7 +39,7 @@
                             <tbody>
                                 @foreach ($rekamMedis as $index => $item)
                                     <tr>
-                                        <td>{{ $index + 1 }}</td>
+                                        <td>{{ $loop->iteration }}</td>
                                         <td>{{ \Carbon\Carbon::parse($item->pendaftaran->tanggal)->translatedFormat('d/m/Y') }}</td>
                                         <td>{{ $item->pendaftaran->pasien->no_kartu ?? '-' }}</td>
                                         <td>{{ $item->pendaftaran->pasien->name ?? '-' }}</td>

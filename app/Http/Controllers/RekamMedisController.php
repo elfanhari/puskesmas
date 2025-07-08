@@ -169,7 +169,11 @@ class RekamMedisController extends Controller
 
       if ($statusLama !== 'selesai') {
         if ($keputusan === 'diberi_obat') {
-          $statusBaru = 'menunggu_obat';
+          if ($rekam_medis->poli_id == 1) { // Poli TBC
+            $statusBaru = 'menunggu_obat';
+          } else {
+            $statusBaru = 'selesai';
+          }
         } elseif ($keputusan === 'dirujuk') {
           $statusBaru = 'selesai';
         }
@@ -196,13 +200,15 @@ class RekamMedisController extends Controller
         }
 
         // Create atau update pengambilan obat
-        $rekam_medis->pengambilanObat()->updateOrCreate(
-          ['rekam_medis_id' => $rekam_medis->id],
-          [
-            'waktu_pengambilan' => $request->waktu_pengambilan,
-            'catatan' => $request->catatan_pengambilan_obat,
-          ]
-        );
+        if ($rekam_medis->poli_id == 1) { // Poli TBC
+          $rekam_medis->pengambilanObat()->updateOrCreate(
+            ['rekam_medis_id' => $rekam_medis->id],
+            [
+              'waktu_pengambilan' => $request->waktu_pengambilan,
+              'catatan' => $request->catatan_pengambilan_obat,
+            ]
+          );
+        }
       }
 
       // Jika perlu dirujuk

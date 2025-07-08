@@ -31,6 +31,7 @@ class DatabaseSeeder extends Seeder
 
     // DUMMY
     Poli::insert([
+      ['name' => 'Poli TBC', 'created_at' => now(), 'updated_at' => now()],
       ['name' => 'Poli Umum', 'created_at' => now(), 'updated_at' => now()],
       ['name' => 'Poli Gigi', 'created_at' => now(), 'updated_at' => now()],
       ['name' => 'Poli KIA', 'created_at' => now(), 'updated_at' => now()],
@@ -44,8 +45,6 @@ class DatabaseSeeder extends Seeder
     User::factory()->count(40)->create();
     $this->call(PuskesmasSeeder::class);
 
-
-
     $this->call(ObatSeeder::class);
     Pasien::factory(100)->create();
     Pendaftaran::factory(100)->create()->each(function ($pendaftaran) {
@@ -53,6 +52,10 @@ class DatabaseSeeder extends Seeder
       $status = fake()->randomElement(['selesai', 'menunggu_obat', 'menunggu_diperiksa']);
       $isRujukan = $status === 'selesai' ? fake()->boolean(20) : false;
       $rekam = RekamMedis::factory()->create(['pendaftaran_id' => $pendaftaran->id, 'status' => $status, 'is_rujukan' => $isRujukan]);
+
+      if ($status == 'menunggu_obat') {
+        $rekam->update(['poli_id' => 1]);
+      }
 
       if (($status === 'menunggu_obat' || $status === 'selesai') && $isRujukan == false) {
         $obats = Obat::inRandomOrder()->take(rand(1, 3))->get();
@@ -64,11 +67,13 @@ class DatabaseSeeder extends Seeder
           ]);
         }
 
-        PengambilanObat::create([
-          'rekam_medis_id' => $rekam->id,
-          'waktu_pengambilan' => now()->addDays(rand(0, 2)),
-          'catatan' => 'Ambil di loket obat',
-        ]);
+        if ($rekam->poli_id == 1) {
+          PengambilanObat::create([
+            'rekam_medis_id' => $rekam->id,
+            'waktu_pengambilan' => now()->addDays(rand(0, 2)),
+            'catatan' => 'Ambil di loket obat',
+          ]);
+        }
       }
 
       if ($isRujukan && $status === 'selesai') {

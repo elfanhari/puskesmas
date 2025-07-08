@@ -26,6 +26,7 @@
                                     {{-- <th>Keluhan</th>
                                     <th>Obat</th>
                                     <th>Status</th> --}}
+                                    <th>Status Notifikasi</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -53,6 +54,17 @@
                                                 {{ $item->rekamMedis->status_label }}
                                             </span>
                                         </td> --}}
+                                        <td>
+                                            @if ($item->is_notified)
+                                                <span class="badge badge-sm badge-success">
+                                                    <i class="fas fa-check"></i> Notifikasi Terkirim
+                                                </span>
+                                            @else
+                                                <span class="badge badge-sm badge-warning">
+                                                    <i class="fas fa-bell"></i> Belum Diberitahu
+                                                </span>
+                                            @endif
+                                        </td>
                                         <td class="">
                                             <div class="oneline">
                                                 <a href="{{ route('rekam-medis.show', $item->rekamMedis->id) }}" class="btn btn-sm btn-success btn-icon icon-left">
@@ -63,11 +75,19 @@
                                                     <a href="{{ route('pengambilan-obat.edit', $item->id) }}" class="btn btn-sm btn-warning btn-icon icon-left">
                                                         <i class="fas fa-pencil-alt"></i> Edit
                                                     </a>
-                                                    <button class="btn btn-primary btn-sm btn-icon icon-left btn-send-notif" data-no-telepon="{{ $item->rekamMedis->pendaftaran->pasien->telepon ?? '' }}" data-id="{{ $item->id }}"
-                                                        data-name="{{ $item->rekamMedis->pendaftaran->pasien->name ?? '' }}">
-                                                        <i class="fas fa-bell"></i>
-                                                        Beritahu
-                                                    </button>
+                                                    @if (!$item->is_notified)
+                                                        <button class="btn btn-primary btn-sm btn-icon icon-left btn-send-notif" data-no-telepon="{{ $item->rekamMedis->pendaftaran->pasien->telepon ?? '' }}" data-id="{{ $item->id }}"
+                                                            data-name="{{ $item->rekamMedis->pendaftaran->pasien->name ?? '' }}">
+                                                            <i class="fas fa-bell"></i>
+                                                            Beritahu
+                                                        </button>
+                                                    @else
+                                                        <button class="btn btn-light btn-sm btn-icon icon-left btn-send-notif" data-no-telepon="{{ $item->rekamMedis->pendaftaran->pasien->telepon ?? '' }}" data-id="{{ $item->id }}"
+                                                            data-name="{{ $item->rekamMedis->pendaftaran->pasien->name ?? '' }}">
+                                                            <i class="fas fa-bell"></i>
+                                                            Beritahu Lagi
+                                                        </button>
+                                                    @endif
                                                 @endif
 
 
@@ -151,6 +171,9 @@
                         progressBar: false,
                         timeout: 5000,
                     });
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000);
                 },
                 error: function(xhr) {
                     $('#modal-send-notif').modal('hide');

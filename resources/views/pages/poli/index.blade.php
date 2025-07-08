@@ -35,16 +35,19 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->name }}</td>
                                         <td>
-                                            <div class="btn-group">
-                                                <a href="{{ route('poli.edit', $item->id) }}" class="btn btn-sm btn-warning">
-                                                    <i class="fas fa-pencil-alt"></i>
-                                                    Edit
-                                                </a>
-                                                <button class="btn btn-sm btn-danger btn-delete" data-id="{{ $item->id }}" data-name="{{ $item->name }}">
-                                                    <i class="fas fa-trash"></i>
-                                                    Delete
-                                                </button>
-                                            </div>
+                                            @if ($item->id != 1)
+                                                <div class="btn-group">
+                                                    <a href="{{ route('poli.edit', $item->id) }}" class="btn btn-sm btn-warning">
+                                                        <i class="fas fa-pencil-alt"></i>
+                                                        Edit
+                                                    </a>
+                                                    <button class="btn btn-sm btn-danger btn-delete" data-id="{{ $item->id }}" data-name="{{ $item->name }}">
+                                                        <i class="fas fa-trash"></i>
+                                                        Delete
+                                                    </button>
+                                                </div>
+                                            @endif
+
                                         </td>
                                     </tr>
                                 @endforeach

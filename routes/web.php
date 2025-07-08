@@ -35,7 +35,7 @@ use PhpParser\Node\Stmt\Return_;
 |
 */
 
-Auth::loginUsingId(1); // admin
+// Auth::loginUsingId(1); // admin
 // Auth::loginUsingId(2); // petugas
 // Auth::loginUsingId(3);  // dokter
 // Auth::loginUsingId(4); // kepala
@@ -79,7 +79,7 @@ Route::middleware('auth')->group(function () {
   Route::resource('/rekam-medis', RekamMedisController::class)->parameters(['rekam-medis' => 'rekam_medis']);
   Route::get('/rekam-medis/{rekam_medis}/print', [RekamMedisController::class, 'print'])->name('rekam-medis.print');
 
-  Route::post('/pengambilan-obat/{pengambilan_obat}/send-notif', [PengambilanObatController::class, 'sendNotif'])->name('pengambilan-obat.send-notif');
+  Route::post('/pengambilan-obat/{pengambilan_obat}/send-notif', [PengambilanObatController::class, 'sendNotifVonage'])->name('pengambilan-obat.send-notif');
   Route::resource('/pengambilan-obat', PengambilanObatController::class);
 
   Route::get('/laporan/pasien', [LaporanController::class, 'laporanPasien'])->name('laporan.pasien');

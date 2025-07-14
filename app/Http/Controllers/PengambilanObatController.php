@@ -15,6 +15,7 @@ use Vonage\Client\Credentials\Basic;
 use App\Services\TwilioService;
 use Twilio\Rest\Client as TwilioClient;
 use Illuminate\Notifications\Messages\VonageMessage;
+use Illuminate\Support\Facades\Http;
 use PhpParser\Node\Stmt\Else_;
 use Vonage\SMS\Message\SMS;
 
@@ -138,6 +139,53 @@ class PengambilanObatController extends Controller
       return response()->json([
         'success' => false,
         'message' => 'Gagal kirim notifikasi: ' . $e->getMessage(),
+      ]);
+    }
+  }
+
+  public function sendNotifWablas(Request $request, PengambilanObat $pengambilan_obat)
+  {
+    $namaPasien = $pengambilan_obat->rekamMedis->pendaftaran->pasien->name;
+    $noTelepon  = $pengambilan_obat->rekamMedis->pendaftaran->pasien->telepon;
+    // $noTelepon  = '+62 812-4067-0863';
+    $noTelepon = Utilities::getTeleponFormatted($noTelepon); // Pastikan format: 628xxxx
+
+    $waktuPengambilan = $pengambilan_obat->waktu_pengambilan_formatted;
+    $messageText = "Halo $namaPasien! Silakan ambil obat Anda pada $waktuPengambilan. Terima kasih.";
+
+    $token = env('WABLAS_TOKEN');
+    $secretKey = env('WABLAS_SECRET');
+
+    $authorization = $token . '.' . $secretKey;
+
+    try {
+      $pengambilan_obat->update(['is_notified' => true]);
+
+      $response = Http::withHeaders([
+        'Authorization' => $authorization,
+      ])->asForm()->post('https://sby.wablas.com/api/send-message', [
+        'phone' => $noTelepon,
+        'message' => $messageText,
+        'isGroup' => 'false',
+      ]);
+
+      $result = $response->json();
+
+      if ($result['status'] ?? false) {
+        return response()->json([
+          'success' => true,
+          'message' => 'Pesan WA berhasil dikirim ke ' . $noTelepon,
+        ]);
+      } else {
+        return response()->json([
+          'success' => false,
+          'message' => 'Gagal mengirim pesan WA. ' . ($result['message'] ?? 'Unknown error'),
+        ]);
+      }
+    } catch (\Throwable $th) {
+      return response()->json([
+        'success' => false,
+        'message' => 'Gagal kirim pesan: ' . $th->getMessage(),
       ]);
     }
   }

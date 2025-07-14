@@ -138,6 +138,7 @@ class PendaftaranController extends Controller
   {
     DB::beginTransaction();
     try {
+      $pendaftaran->rekamMedis()->delete();
       $pendaftaran->delete();
       DB::commit();
       return back()->withSuccess("Pendaftaran pasien {$pendaftaran->pasien->name} berhasil dihapus!");

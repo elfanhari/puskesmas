@@ -144,6 +144,14 @@
             <div class="card-body">
 
                 <div class="form-group mb-3">
+                    <label for="hasil_lab" class="required">Hasil Lab</label>
+                    <textarea name="hasil_lab" id="hasil_lab" rows="3" class="form-control @error('hasil_lab') is-invalid @enderror" placeholder="Masukkan hasil_lab" required>{{ old('hasil_lab', $rekamMedis->hasil_lab ?? '') }}</textarea>
+                    @error('hasil_lab')
+                        <span class="invalid-feedback">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="form-group mb-3">
                     <label for="diagnosa" class="required">Diagnosa</label>
                     <textarea name="diagnosa" id="diagnosa" rows="3" class="form-control @error('diagnosa') is-invalid @enderror" placeholder="Masukkan diagnosa" required>{{ old('diagnosa', $rekamMedis->diagnosa ?? '') }}</textarea>
                     @error('diagnosa')

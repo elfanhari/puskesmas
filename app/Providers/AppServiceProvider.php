@@ -27,8 +27,8 @@ class AppServiceProvider extends ServiceProvider
    */
   public function boot()
   {
-    $puskesmas = Puskesmas::first();
-    view()->share('puskesmas', $puskesmas);
+    // $puskesmas = Puskesmas::first();
+    // view()->share('puskesmas', $puskesmas);
 
     Gate::define('admin', function (User $user) {
       return $user->isAdmin();

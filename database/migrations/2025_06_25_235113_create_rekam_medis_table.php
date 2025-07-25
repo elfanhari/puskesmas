@@ -18,6 +18,7 @@ return new class extends Migration
       $table->foreignId('pendaftaran_id')->constrained('pendaftarans')->onDelete('cascade');
       $table->foreignId('dokter_id')->constrained('dokters')->onDelete('cascade');
       $table->foreignId('poli_id')->constrained('polis')->onDelete('cascade');
+      $table->text('hasil_lab')->nullable();
       $table->text('diagnosa')->nullable();
       $table->text('tindakan')->nullable();
       $table->text('catatan')->nullable();

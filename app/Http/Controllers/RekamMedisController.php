@@ -113,6 +113,7 @@ class RekamMedisController extends Controller
       'berat_badan' => 'nullable|numeric',
       // 'poli_id' => 'required|exists:polis,id',
       // 'dokter_id' => 'required|exists:dokters,id',
+      'hasil_lab' => 'nullable|string',
       'diagnosa' => 'nullable|string',
       'tindakan' => 'nullable|string',
       'catatan' => 'nullable|string',
@@ -149,6 +150,7 @@ class RekamMedisController extends Controller
       $rekam_medis->update([
         // 'poli_id' => $request->poli_id,
         // 'dokter_id' => $request->dokter_id,
+        'hasil_lab' => $request->hasil_lab,
         'diagnosa' => $request->diagnosa,
         'tindakan' => $request->tindakan,
         'catatan' => $request->catatan,

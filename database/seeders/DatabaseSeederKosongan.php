@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Dokter;
+use App\Models\Poli;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -15,6 +17,9 @@ class DatabaseSeederKosongan extends Seeder
    */
   public function run()
   {
+    Poli::create(
+      ['name' => 'Poli TBC']
+    );
     User::factory()->create(['name' => 'Admin', 'email' => 'admin@gmail.com', 'password' => 'password', 'role' => 'admin', 'is_aktif' => true]);
     User::factory()->create(['name' => 'Petugas', 'email' => 'petugas@gmail.com', 'password' => 'password', 'role' => 'petugas', 'is_aktif' => true]);
     $dokterUser = User::factory()->create(['name' => 'Dokter', 'email' => 'dokter@gmail.com', 'password' => 'password', 'role' => 'dokter', 'is_aktif' => true]);

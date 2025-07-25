@@ -24,6 +24,7 @@ class RekamMedisFactory extends Factory
       'pendaftaran_id' => Pendaftaran::factory(),
       'dokter_id' => Dokter::inRandomOrder()->first()->id ?? Dokter::factory(),
       'poli_id' => Poli::inRandomOrder()->first()->id ?? Poli::factory(),
+      'hasil_lab' => $this->faker->sentence(),
       'diagnosa' => $this->faker->sentence(),
       'tindakan' => $this->faker->sentence(),
       'catatan' => $this->faker->text(100),

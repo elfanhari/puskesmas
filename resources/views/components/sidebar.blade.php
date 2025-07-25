@@ -1,10 +1,10 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="index.html">{{ auth()->user()->role_formatted }}</a>
+            <a href="#">{{ auth()->user()->role_formatted }}</a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
-            <a href="index.html"></a>
+            <a href="#"></a>
         </div>
         <ul class="sidebar-menu">
 

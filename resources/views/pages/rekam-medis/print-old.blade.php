@@ -101,7 +101,7 @@
                 <img src="{{ $puskesmas->url_logo }}" alt="Logo" style="max-height: 50px;">
             </div>
         @endif
-        <div class="title">KARTU REKAM MEDIS</div>
+        <div class="title">KARTU BEROBAT</div>
         <div class="title">{{ $puskesmas->name }}</div>
         <div>{{ $puskesmas->alamat }}</div>
     </div>
@@ -110,13 +110,15 @@
         <table class="info-table">
             @php
                 $info = [
-                    'No.RM' => $pendaftaran->pasien->no_kartu,
                     'Nama' => $pendaftaran->pasien->name,
-                    'NIK' => $pendaftaran->pasien->nik,
-                    'Tanggal Lahir' => Carbon\Carbon::parse($pendaftaran->pasien->tanggal_lahir)->translatedFormat('d/m/Y'),
+                    'No.RM' => $pendaftaran->pasien->no_kartu,
                     'Jenis Kelamin' => $pendaftaran->pasien->jk_formatted,
-                    'Alamat' => $pendaftaran->pasien->alamat,
-                    'No. Telepon' => $pendaftaran->pasien->telepon,
+                    'Tanggal Kunjungan' => Carbon\Carbon::parse($pendaftaran->tanggal_kunjungan)->translatedFormat('d/m/Y'),
+                    'Keluhan' => $pendaftaran->keluhan,
+                    'Tekanan Darah' => $pendaftaran->tekanan_darah,
+                    'Suhu Tubuh' => $pendaftaran->suhu . ' °C',
+                    'Tinggi Badan' => $pendaftaran->tinggi_badan . ' cm',
+                    'Berat Badan' => $pendaftaran->berat_badan . ' kg',
                 ];
             @endphp
             @foreach ($info as $label => $value)
@@ -135,37 +137,22 @@
     </div>
 
     <div class="section fs-12">
-        <div class="section-title">Pemeriksaan Perawat</div>
+        <div class="section-title">Pemeriksaan Lanjutan</div>
         <table class="info-table">
-            @php
-                $pemeriksaan = [
-                    'Nama' => $pendaftaran->pasien->name,
-                    'Tanggal Kunjungan' => Carbon\Carbon::parse($pendaftaran->tanggal_kunjungan)->translatedFormat('d/m/Y'),
-                    'Keluhan' => $pendaftaran->keluhan,
-                    'Tekanan Darah' => $pendaftaran->tekanan_darah,
-                    'Suhu Tubuh' => $pendaftaran->suhu . ' °C',
-                    'Tinggi Badan' => $pendaftaran->tinggi_badan . ' cm',
-                    'Berat Badan' => $pendaftaran->berat_badan . ' kg',
-                    'Poli' => $rekamMedis->poli->name,
-                    'Dokter' => $rekamMedis->dokter->name,
-                ];
-            @endphp
-            @foreach ($pemeriksaan as $k => $v)
-                <tr>
-                    <td class="label">{{ $k }}</td>
-                    <td>: {{ $v }}</td>
-                </tr>
-            @endforeach
+            <tr>
+                <td class="label">Poli</td>
+                <td>: {{ $rekamMedis->poli->name }}</td>
+            </tr>
+            <tr>
+                <td class="label">Dokter</td>
+                <td>: {{ $rekamMedis->dokter->name }}</td>
+            </tr>
         </table>
     </div>
 
     <div class="section">
-        <div class="section-title">Pemeriksaan Dokter</div>
+        <div class="section-title">Diagnosa & Tindakan</div>
         <table class="info-table">
-            <tr>
-                <td class="label">Hasil Lab</td>
-                <td>: {{ $rekamMedis->hasil_lab }}</td>
-            </tr>
             <tr>
                 <td class="label">Diagnosa</td>
                 <td>: {{ $rekamMedis->diagnosa }}</td>
@@ -175,7 +162,7 @@
                 <td>: {{ $rekamMedis->tindakan }}</td>
             </tr>
             <tr>
-                <td class="label">Catatan</td>
+                <td class="label">Catatan Tambahan</td>
                 <td>: {{ $rekamMedis->catatan ?? '-' }}</td>
             </tr>
             <tr>

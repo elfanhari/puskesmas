@@ -22,6 +22,6 @@ class Pendaftaran extends Model
 
   public function rekamMedis()
   {
-    return $this->hasOne(RekamMedis::class, 'rekam_medis_id');
+    return $this->hasOne(RekamMedis::class);
   }
 }

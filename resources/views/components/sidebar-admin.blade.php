@@ -44,7 +44,7 @@
     </a>
 </li>
 
-<li class="{{ Request::is('rekam-medis*') ? 'active' : '' }}">
+{{-- <li class="{{ Request::is('rekam-medis*') ? 'active' : '' }}">
     <a class="nav-link" href="/rekam-medis">
         <i class="fas fa-notes-medical"></i> <span>Data Rekam Medis</span>
     </a>
@@ -54,7 +54,7 @@
     <a class="nav-link" href="/pengambilan-obat">
         <i class="fas fa-pills"></i> <span>Pengambilan Obat</span>
     </a>
-</li>
+</li> --}}
 
 
 <li class="dropdown {{ Request::is('laporan*') ? 'active' : '' }}">

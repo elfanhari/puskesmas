@@ -92,6 +92,7 @@
                             <h5 class="mb-0">Diagnosa & Tindakan</h5>
                         </div>
                         <div class="card-body">
+                            <div class="mb-2"><strong>Hasil Lab</strong><br> {{ $rekamMedis->hasil_lab ?? '-' }}</div>
                             <div class="mb-2"><strong>Diagnosa</strong><br> {{ $rekamMedis->diagnosa ?? '-' }}</div>
                             <div class="mb-2"><strong>Tindakan</strong><br> {{ $rekamMedis->tindakan ?? '-' }}</div>
                             <div class="mb-2"><strong>Catatan Tambahan</strong><br> {{ $rekamMedis->catatan ?? '-' }}</div>
